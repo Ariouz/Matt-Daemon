@@ -30,7 +30,7 @@ void Server::open() {
     if (bind(_serverFd, (struct sockaddr*) &sockaddr, sizeof(sockaddr)) == -1) throw std::runtime_error("Failed to bind socket");
     Tintin_reporter::info("Server bound to port " + std::to_string(SERVER_PORT));
 
-    if (listen(_serverFd, SERVRE_MAXCON) == -1) throw std::runtime_error("Failed to listen to socket");
+    if (listen(_serverFd, SERVER_MAXCON) == -1) throw std::runtime_error("Failed to listen to socket");
 
     pollfd.fd = _serverFd;
     pollfd.events = POLLIN;
@@ -75,7 +75,7 @@ void	Server::acceptClient(void)
 	if (client_socket_fd == -1) throw std::runtime_error("Error: failed to accept client");
 	if (fcntl(client_socket_fd, F_SETFL, O_NONBLOCK) == -1) throw std::runtime_error("Error: failed to set client to NONBLOCK");
 
-     if (_polls.size() == SERVRE_MAXCON + 1) {
+     if (_polls.size() == SERVER_MAXCON + 1) {
         close(client_socket_fd);
         return ;
     }

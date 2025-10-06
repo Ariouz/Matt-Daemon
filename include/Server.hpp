@@ -16,7 +16,7 @@
 # include "Utils.hpp"
 
 # define SERVER_PORT 4242
-# define SERVRE_MAXCON 3
+# define SERVER_MAXCON 3
 
 class Server {
 
