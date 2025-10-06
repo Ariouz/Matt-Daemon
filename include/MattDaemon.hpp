@@ -7,6 +7,8 @@ class MattDaemon {
 
     public:
         MattDaemon();
+        MattDaemon(const MattDaemon& other) = default;
+        MattDaemon& operator=(const MattDaemon& other) = default;
         ~MattDaemon();
 
 };

@@ -16,16 +16,16 @@ class Tintin_reporter {
         Tintin_reporter(const std::string& logfile);
 
         std::string _logfile;
-        bool        _verbose = false;
-
         void        _log(const std::string& level, const std::string& msg);
 
         void        _createLogFile();
         std::string _getTimestamp();
 
     public:
-        Tintin_reporter();
-        ~Tintin_reporter();
+        Tintin_reporter() = default;
+        Tintin_reporter(const Tintin_reporter& other) = default;
+        Tintin_reporter& operator=(const Tintin_reporter& other) = default;
+        ~Tintin_reporter() = default;
 
         static Tintin_reporter& instance() {
             static Tintin_reporter _instance("/var/log/matt_daemon/.matt_daemon.log");
@@ -35,7 +35,5 @@ class Tintin_reporter {
         static void info(const std::string& message);
         static void warn(const std::string& message);
         static void error(const std::string& message);
-
-        static void setVerbose(bool verbose);
 
 };

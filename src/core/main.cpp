@@ -11,7 +11,7 @@ int main() {
     try {
         MattDaemon mattDaemon;
     } catch (std::exception& e) {
-        std::cerr << e.what() << std::endl;
+        std::cerr << "Error: " << e.what() << std::endl;
         return 1;
     }
 

@@ -1,13 +1,7 @@
 #include "TintinReporter.hpp"
 
-Tintin_reporter::Tintin_reporter() = default;
 Tintin_reporter::Tintin_reporter(const std::string& logfile) : _logfile(logfile) {
     _createLogFile();    
-}
-Tintin_reporter::~Tintin_reporter() = default;
-
-void Tintin_reporter::setVerbose(bool verbose) {
-    instance()._verbose = verbose;
 }
 
 void Tintin_reporter::info(const std::string& msg) { 
@@ -27,10 +21,6 @@ void Tintin_reporter::_log(const std::string& level, const std::string& msg) {
     std::stringstream ss;
     ss << _getTimestamp() << " " << level << msg << std::endl;
     ofs << ss.str();
-    if (_verbose) {
-        if (level == "[ERROR] ") std::cerr << ss.str();
-        else std::cout << ss.str();
-    }
 }
 
 std::string Tintin_reporter::_getTimestamp() {
