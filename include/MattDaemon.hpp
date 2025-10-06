@@ -3,6 +3,8 @@
 #include <iostream>
 #include <string.h>
 
+#include "TintinReporter.hpp"
+
 class MattDaemon {
 
     public:

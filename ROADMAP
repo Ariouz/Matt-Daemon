@@ -4,7 +4,7 @@ Your classes must respect the **Coplien form**.
 
 [X] • The executable will be named MattDaemon.
 [X] • The program will have to run only with the root rights.
-[] • Your program will have to run in the background, just like a real daemon.
+[X] • Your program will have to run in the background, just like a real daemon.
 [] • The daemon will have to listen to the port 4242.
 [X] • For your daemon’s log, you will have to create a class called Tintin_reporter (you
 will be able to re-use it in future projects).

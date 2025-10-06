@@ -1,6 +1,6 @@
 #include "MattDaemon.hpp"
-#include "TintinReporter.hpp"
 #include "DaemonLocker.hpp"
+#include "Server.hpp"
 
 MattDaemon::MattDaemon() {
     int pid = fork();
@@ -11,7 +11,12 @@ MattDaemon::MattDaemon() {
         DaemonLocker locker;
         Tintin_reporter::info("Starting daemon");
 
-        // start server
+        Server server;
+        server.open();
+
+        while (server.isRunning()) {
+            server.loop();
+        }
     }
 }
 

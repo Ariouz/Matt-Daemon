@@ -6,6 +6,8 @@
 #include <filesystem>
 #include <unistd.h>
 
+#include "TintinReporter.hpp"
+
 class DaemonLocker {
 
     private:

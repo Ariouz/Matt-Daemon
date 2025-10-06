@@ -1,5 +1,4 @@
 #include "DaemonLocker.hpp"
-#include "TintinReporter.hpp"
 
 DaemonLocker::DaemonLocker() {
     std::filesystem::path path = _file;
@@ -15,7 +14,7 @@ DaemonLocker::DaemonLocker() {
     }
 
     if (std::filesystem::exists(_file)) {
-        throw std::runtime_error("Cannot run multiple daemon at the same time");
+        throw std::runtime_error("Can't open :/var/lock/matt_daemon.lock");
     }
 
     std::ofstream ofs(_file, std::ios::out | std::ios::trunc);
@@ -24,9 +23,9 @@ DaemonLocker::DaemonLocker() {
         ofs << getpid() << std::endl;
         ofs.close();
         return;
-    } 
+    }
     
-    throw std::runtime_error("Failed to create lock file due to permissions or FS error");
+    throw std::runtime_error("Failed to create lock file due to permissions or filesystem error");
 }
 
 DaemonLocker::~DaemonLocker() {
@@ -34,5 +33,5 @@ DaemonLocker::~DaemonLocker() {
 
     if (!std::filesystem::exists(path)) Tintin_reporter::error("Lock file not found");
     
-    if (std::filesystem::remove(path) != 0) Tintin_reporter::error("Failed to delete lock file");
+    if (!std::filesystem::remove(path)) Tintin_reporter::error("Failed to delete lock file");
 }
