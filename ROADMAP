@@ -20,6 +20,6 @@ must pop.
 [X] • The program must quit with the sending of a simple "quit" character chain on the
 opened socket.
 [X] • Any other character chain must be registered in the log file.
-[] • Only 3 clients can connect simultaneously to the daemon.
+[X] • Only 3 clients can connect simultaneously to the daemon.
 [] • When the daemon receives a signal, it must intercept it and register it in the
 matt_daemon.log file with an explicit message and quit properly.

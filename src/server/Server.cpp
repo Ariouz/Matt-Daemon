@@ -67,11 +67,18 @@ void	Server::acceptClient(void)
 	int				client_socket_fd;
 	socklen_t		client_len;
 
+   
+
 	client_len = sizeof(client_addr);
 	client_socket_fd = accept(_serverFd, (sockaddr *)&client_addr, &client_len);
 
 	if (client_socket_fd == -1) throw std::runtime_error("Error: failed to accept client");
 	if (fcntl(client_socket_fd, F_SETFL, O_NONBLOCK) == -1) throw std::runtime_error("Error: failed to set client to NONBLOCK");
+
+     if (_polls.size() == SERVRE_MAXCON + 1) {
+        close(client_socket_fd);
+        return ;
+    }
 
 	client_poll_fd.fd = client_socket_fd;
 	client_poll_fd.events = POLLIN;
