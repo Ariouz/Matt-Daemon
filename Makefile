@@ -28,14 +28,20 @@ $(OBJ_DIR):
 
 bonus:
 	make $(NAME) BONUS=1
+	make -C mattD/build/Desktop_Qt_6_9_3-Debug/
 
 clean:
 	rm -rf $(OBJ_DIR)
+	make -C ./mattD/build/Desktop_Qt_6_9_3-Debug/ clean
+	rm ./mattD/build/Desktop_Qt_6_9_3-Debug/mattD
 
 fclean: clean
 	rm -f $(NAME)
 
 re: fclean all
+
+gui:
+	sh -c "./mattD/build/Desktop_Qt_6_9_3-Debug/mattD"
 
 
 .PHONY: all clean fclean re
