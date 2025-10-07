@@ -2,6 +2,10 @@
 #include "DaemonLocker.hpp"
 #include "Server.hpp"
 
+#ifdef BONUS
+# include "WebHookNotifier.hpp"
+# endif
+
 MattDaemon::MattDaemon() {
     int pid = fork();
 
@@ -13,6 +17,9 @@ MattDaemon::MattDaemon() {
 
         DaemonLocker locker;
         Tintin_reporter::info("Starting daemon");
+        #ifdef BONUS
+        WebHookNotifier::send("Daemon started");
+        #endif
 
         Server server;
         setup_signals(server);
@@ -22,7 +29,10 @@ MattDaemon::MattDaemon() {
             server.loop();
         }
 
-        Tintin_reporter::info("end of loop");
+        #ifdef BONUS
+        WebHookNotifier::send("Daemon stopped");
+        #endif
+
     }
 }
 
