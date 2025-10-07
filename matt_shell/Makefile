@@ -1,8 +1,8 @@
 #################### VARIABLES
-NAME = MattDaemon
+NAME = MattShell
 CXX = g++
 CXXFLAGS = -Wall -Wextra -Werror -std=c++17 -g $(if $(BONUS),-DBONUS)
-LDFLAGS = -lcurl #-fsanitize=thread -fno-omit-frame-pointer -pthread
+LDFLAGS = -lreadline
 
 SRC_DIR = src
 OBJ_DIR = obj
@@ -11,9 +11,6 @@ INCLUDES = $(addprefix -I,$(shell find include -type d))
 
 SRCS = $(wildcard $(SRC_DIR)/**/*.cpp)
 OBJS = $(patsubst $(SRC_DIR)/%.cpp,$(OBJ_DIR)/%.o,$(SRCS))
-
-MATT_SHELL= matt_shell
-GUI_PATH= ./mattD/build/Desktop_Qt_6_9_3-Debug/
 
 #################### RULES
 
@@ -29,28 +26,13 @@ $(OBJ_DIR)/%.o: $(SRC_DIR)/%.cpp | $(OBJ_DIR)
 $(OBJ_DIR):
 	mkdir -p $(OBJ_DIR)
 
-bonus:
-	make $(NAME) BONUS=1
-	make -C $(MATT_SHELL)
-	make -C mattD/build/Desktop_Qt_6_9_3-Debug/
-
-clean:
-
 clean:
 	rm -rf $(OBJ_DIR)
-	make -C $(MATT_SHELL) clean
-	make -C $(GUI_PATH) clean
-	rm "$(GUI_PATH)mattD"
 
 fclean: clean
-	rm -rf $(NAME)
-	rm -f $(MATT_SHELL)/MattShell
+	rm -f $(NAME)
 
 re: fclean all
-
-gui:
-	sh -c "$(GUI_PATH)mattD"
-
 
 
 .PHONY: all clean fclean re

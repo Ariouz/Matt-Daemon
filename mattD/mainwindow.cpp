@@ -10,8 +10,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     connect(ui->inputField, &QLineEdit::returnPressed,
             this, &MainWindow::on_sendButton_clicked);
-    connect(ui->sendButton, &QPushButton::clicked, this, &MainWindow::sendMsg);
-    connect(ui->sendButton, &QPushButton::clicked, this, &MainWindow::sendMsg);
+    connect(ui->sendButton, &QPushButton::clicked, this, &MainWindow::on_sendButton_clicked);
 
 
     socket = new QTcpSocket(this);
@@ -31,7 +30,7 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::sendMsg()
+void MainWindow::on_sendButton_clicked()
 {
     QString message = ui->inputField->text();
     if (message.isEmpty()) return;
@@ -44,14 +43,9 @@ void MainWindow::sendMsg()
     } else {
         QMessageBox::warning(this, "Error", "Connection not established.");
     }
-}
 
-void MainWindow::on_pushButton_clicked()
-{
-    sendMsg();
-}
-
-void MainWindow::on_sendButton_clicked()
-{
-    sendMsg();
+    if (message.trimmed().toLower() == "quit") {
+        close();
+        return;
+    }
 }

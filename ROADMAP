@@ -21,5 +21,13 @@ must pop.
 opened socket.
 [X] • Any other character chain must be registered in the log file.
 [X] • Only 3 clients can connect simultaneously to the daemon.
-[] • When the daemon receives a signal, it must intercept it and register it in the
+[X] • When the daemon receives a signal, it must intercept it and register it in the
 matt_daemon.log file with an explicit message and quit properly.
+
+
+BONUS:
+[] - Graphic client
+[] - Log compression on daemon quit .gzip
+[X] - Syslog
+[X] - Remote shell
+[X] - Webhook

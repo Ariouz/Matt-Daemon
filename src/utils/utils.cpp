@@ -1,5 +1,7 @@
 #include "Utils.hpp"
 
+static Server* _server = nullptr;
+
 std::vector<std::string> splitByCr(const std::string& input) {
     std::vector<std::string>    result;
     std::istringstream          iss(input);
@@ -17,17 +19,21 @@ std::vector<std::string> splitByCr(const std::string& input) {
 
 void signal_handler(int sig) {
 	switch (sig) {
+		// NOTE SIGKILL (9) CANT BE INTERCEPTED => KERNEL KILLS PROCESS
 		case SIGINT:
 			Tintin_reporter::info("Signal handler SIGINT.");
+			_server->quit();
 			break;
 		case SIGTERM:
 			Tintin_reporter::info("Signal handler SIGTERM.");
+			_server->quit();
 			break;
 		case SIGHUP:
 			Tintin_reporter::info("Signal handler SIGHUP.");
 			break;
 		case SIGQUIT:
 			Tintin_reporter::info("Signal handler SIGQUIT.");
+			_server->quit();
 			break;
 		case SIGUSR1:
 			Tintin_reporter::info("Signal handler SIGUSR1.");
@@ -37,15 +43,23 @@ void signal_handler(int sig) {
 			break;
 		default:
 			Tintin_reporter::info("Received unknown signal.");
+			break;
 	}
-    Tintin_reporter::info("Quit requested");
 }
 
-void setup_signals(void) {
-	signal(SIGINT, signal_handler);
-	signal(SIGTERM, signal_handler);
-	signal(SIGHUP, signal_handler);
-	signal(SIGQUIT, signal_handler);
-	signal(SIGUSR1, signal_handler);
-	signal(SIGUSR2, signal_handler);
+void setup_signals(Server& server) {
+	_server = &server;
+
+	struct sigaction sa;
+    sa.sa_handler = signal_handler;
+    sigemptyset(&sa.sa_mask);
+    sa.sa_flags = 0;
+
+	sigaction(SIGKILL, &sa, NULL);
+	sigaction(SIGINT, &sa, NULL);
+	sigaction(SIGTERM, &sa, NULL);
+	sigaction(SIGHUP, &sa, NULL);
+	sigaction(SIGQUIT, &sa, NULL);
+	sigaction(SIGUSR1, &sa, NULL);
+	sigaction(SIGUSR2, &sa, NULL);
 }

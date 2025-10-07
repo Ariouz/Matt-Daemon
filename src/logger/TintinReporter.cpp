@@ -6,14 +6,29 @@ Tintin_reporter::Tintin_reporter(const std::string& logfile) : _logfile(logfile)
 
 void Tintin_reporter::info(const std::string& msg) { 
     instance()._log("[INFO] ", msg); 
+    #ifdef BONUS
+    openlog("matt_daemon", LOG_PID | LOG_CONS, LOG_USER);
+    syslog(LOG_INFO, "%s", msg.c_str());
+    closelog();
+    #endif
 }
 
 void Tintin_reporter::warn(const std::string& msg) { 
     instance()._log("[WARN] ", msg); 
+    #ifdef BONUS
+    openlog("matt_daemon", LOG_PID | LOG_CONS, LOG_USER);
+    syslog(LOG_WARNING, "%s", msg.c_str());
+    closelog();
+    #endif
 }
 
 void Tintin_reporter::error(const std::string& msg) { 
     instance()._log("[ERROR] ", msg);
+    #ifdef BONUS
+    openlog("matt_daemon", LOG_PID | LOG_CONS, LOG_USER);
+    syslog(LOG_ERR, "%s", msg.c_str());
+    closelog();
+    #endif
 }
 
 void Tintin_reporter::_log(const std::string& level, const std::string& msg) {

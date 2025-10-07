@@ -2,8 +2,9 @@
 
 #include <iostream>
 #include <string.h>
-
 #include "TintinReporter.hpp"
+#include "Utils.hpp"
+
 
 class MattDaemon {
 
