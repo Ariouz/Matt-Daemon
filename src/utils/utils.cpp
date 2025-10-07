@@ -19,6 +19,7 @@ std::vector<std::string> splitByCr(const std::string& input) {
 
 void signal_handler(int sig) {
 	switch (sig) {
+		// NOTE SIGKILL (9) CANT BE INTERCEPTED => KERNEL KILLS PROCESS
 		case SIGINT:
 			Tintin_reporter::info("Signal handler SIGINT.");
 			_server->quit();
@@ -54,6 +55,7 @@ void setup_signals(Server& server) {
     sigemptyset(&sa.sa_mask);
     sa.sa_flags = 0;
 
+	sigaction(SIGKILL, &sa, NULL);
 	sigaction(SIGINT, &sa, NULL);
 	sigaction(SIGTERM, &sa, NULL);
 	sigaction(SIGHUP, &sa, NULL);
