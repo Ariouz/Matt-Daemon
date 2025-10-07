@@ -4,5 +4,10 @@
 # include <string>
 # include <unistd.h>
 # include <sstream>
+#include  <signal.h>
+# include "TintinReporter.hpp"
+#include  "Server.hpp"
 
-std::vector<std::string> splitByCr(const std::string& input);
+std::vector<std::string>    splitByCr(const std::string& input);
+void                        signal_handler(int sig);
+void                        setup_signals(void);
