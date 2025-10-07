@@ -18,10 +18,15 @@ DaemonLocker::DaemonLocker() {
     }
 
     std::ofstream ofs(_file, std::ios::out | std::ios::trunc);
-    
+
     if (ofs.is_open()) {
         ofs << getpid() << std::endl;
         ofs.close();
+
+        std::ostringstream oss;
+        oss << "started. PID: " << getpid() << ".";
+        Tintin_reporter::info(oss.str());
+
         return;
     }
     
@@ -32,6 +37,6 @@ DaemonLocker::~DaemonLocker() {
     std::filesystem::path path = _file;
 
     if (!std::filesystem::exists(path)) Tintin_reporter::error("Lock file not found");
-    
+
     if (!std::filesystem::remove(path)) Tintin_reporter::error("Failed to delete lock file");
 }

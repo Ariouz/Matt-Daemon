@@ -1,4 +1,5 @@
 #include "MattDaemon.hpp"
+#include "Utils.hpp"
 #include <unistd.h>
 
 int main() {
@@ -9,6 +10,7 @@ int main() {
     }
 
     try {
+        setup_signals();
         MattDaemon mattDaemon;
     } catch (std::exception& e) {
         std::cerr << "Error: " << e.what() << std::endl;
