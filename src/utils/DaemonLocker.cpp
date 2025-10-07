@@ -1,37 +1,29 @@
 #include "DaemonLocker.hpp"
 
-DaemonLocker::DaemonLocker() {
+DaemonLocker::DaemonLocker() : _fd(-1) {
     std::filesystem::path path = _file;
     std::filesystem::path parent = path.parent_path();
     if (!parent.empty() && !std::filesystem::exists(parent)) {
-        try {
-            if (!std::filesystem::create_directories(parent)) {
-                throw std::runtime_error("Failed to created lock parent directories");
-            }
-        } catch (std::filesystem::filesystem_error& e) {
-            throw std::runtime_error(e.what());
-        }
+        std::filesystem::create_directories(parent);
     }
-
-    if (std::filesystem::exists(_file)) {
+    
+    _fd = open(_file.c_str(), O_CREAT | O_RDWR, 0644);
+    if (_fd == -1) {
+        throw std::runtime_error("Failed to open lock file");
+    }
+    
+    if (flock(_fd, LOCK_EX | LOCK_NB) == -1) {
+        close(_fd);
         throw std::runtime_error("Can't open :/var/lock/matt_daemon.lock");
     }
-
-    std::ofstream ofs(_file, std::ios::out | std::ios::trunc);
     
-    if (ofs.is_open()) {
-        ofs << getpid() << std::endl;
-        ofs.close();
-        return;
-    }
-    
-    throw std::runtime_error("Failed to create lock file due to permissions or filesystem error");
+    std::ofstream ofs(_file, std::ios::trunc);
+    ofs << getpid() << std::endl;
 }
 
 DaemonLocker::~DaemonLocker() {
-    std::filesystem::path path = _file;
-
-    if (!std::filesystem::exists(path)) Tintin_reporter::error("Lock file not found");
-    
-    if (!std::filesystem::remove(path)) Tintin_reporter::error("Failed to delete lock file");
+    if (_fd != -1) {
+        close(_fd);
+    }
+    std::filesystem::remove(_file);
 }
