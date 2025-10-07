@@ -19,7 +19,7 @@ FORMS += \
     mainwindow.ui
 
 TRANSLATIONS += \
-    mattD_fr_FR.ts
+    matt_gui_fr_FR.ts
 CONFIG += lrelease
 CONFIG += embed_translations
 
