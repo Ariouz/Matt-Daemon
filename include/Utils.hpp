@@ -8,6 +8,8 @@
 # include "TintinReporter.hpp"
 #include  "Server.hpp"
 
+class Server;
+
 std::vector<std::string>    splitByCr(const std::string& input);
 void                        signal_handler(int sig);
-void                        setup_signals(void);
+void                        setup_signals(Server& server);

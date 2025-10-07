@@ -46,7 +46,11 @@ void    Server::quit() {
 }
 
 void	Server::loop() {
-	if (poll(&_polls[0], this->_polls.size(), -1) == -1) throw std::runtime_error("Error: poll() function failed");
+	int ret = poll(&_polls[0], this->_polls.size(), -1);
+	if (ret == -1) {
+		if (errno == EINTR) return;
+		throw std::runtime_error("Error: poll() function failed");
+	}
 
 	for (std::size_t index = 0; index < this->_polls.size(); index++) {
 		if (this->_polls[index].revents & POLLIN) {
@@ -66,8 +70,6 @@ void	Server::acceptClient(void)
 	struct pollfd	client_poll_fd;
 	int				client_socket_fd;
 	socklen_t		client_len;
-
-   
 
 	client_len = sizeof(client_addr);
 	client_socket_fd = accept(_serverFd, (sockaddr *)&client_addr, &client_len);
