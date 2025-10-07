@@ -9,6 +9,11 @@
 #include <time.h>
 #include <ctime>
 
+#ifdef BONUS
+// Get syslogs: journalctl -f -t matt_daemon
+# include <syslog.h>
+
+#endif
 
 class Tintin_reporter {
 

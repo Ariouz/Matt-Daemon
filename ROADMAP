@@ -28,6 +28,6 @@ matt_daemon.log file with an explicit message and quit properly.
 BONUS:
 [] - Graphic client
 [] - Log compression on daemon quit .gzip
-[] - Syslog
+[X] - Syslog
 [] - Remote shell
-[] - Webhook
+[X] - Webhook
