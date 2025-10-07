@@ -6,7 +6,7 @@
 # include <iostream>
 
 # ifndef WEBHOOK_URL
-# define WEBHOOK_URL "https://webhook.site/cfbaccb6-8991-46d4-ab92-b9a309fa1fe4"
+# define WEBHOOK_URL "DEFINE AT COMPILE"
 # endif
 
 # include "TintinReporter.hpp"

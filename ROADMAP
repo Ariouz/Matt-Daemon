@@ -29,5 +29,5 @@ BONUS:
 [] - Graphic client
 [] - Log compression on daemon quit .gzip
 [X] - Syslog
-[] - Remote shell
+[X] - Remote shell
 [X] - Webhook
