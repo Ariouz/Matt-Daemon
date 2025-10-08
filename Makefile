@@ -2,7 +2,7 @@
 NAME = MattDaemon
 CXX = g++
 CXXFLAGS = -Wall -Wextra -Werror -std=c++17 -g $(if $(BONUS),-DBONUS)
-LDFLAGS = -lcurl #-fsanitize=thread -fno-omit-frame-pointer -pthread
+LDFLAGS = -lcurl -lz #-fsanitize=thread -fno-omit-frame-pointer -pthread
 
 SRC_DIR = src
 OBJ_DIR = obj
@@ -32,15 +32,15 @@ $(OBJ_DIR):
 bonus:
 	make $(NAME) BONUS=1
 	make -C $(MATT_SHELL)
-	make -C $(GUI_PATH)
+#make -C $(GUI_PATH)
 
 clean:
 
 clean:
 	rm -rf $(OBJ_DIR)
 	make -C $(MATT_SHELL) clean
-	make -C $(GUI_PATH) clean
-	rm "$(GUI_PATH)Ben_AFK"
+#make -C $(GUI_PATH) clean
+#rm "$(GUI_PATH)Ben_AFK"
 
 fclean: clean
 	rm -rf $(NAME)

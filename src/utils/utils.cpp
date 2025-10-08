@@ -63,3 +63,23 @@ void setup_signals(Server& server) {
 	sigaction(SIGUSR1, &sa, NULL);
 	sigaction(SIGUSR2, &sa, NULL);
 }
+
+int compress_log(const char* src, const char* dest) {
+    FILE* in = fopen(src, "rb");
+    if (!in) return 1;
+    gzFile out = gzopen(dest, "wb");
+    if (!out) {
+        fclose(in);
+        return 2;
+    }
+
+    char buffer[8192];
+    int bytes;
+    while ((bytes = fread(buffer, 1, sizeof(buffer), in)) > 0) {
+        gzwrite(out, buffer, bytes);
+    }
+
+    fclose(in);
+    gzclose(out);
+    return 0;
+}

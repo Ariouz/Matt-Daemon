@@ -4,7 +4,7 @@
 
 #ifdef BONUS
 # include "WebHookNotifier.hpp"
-# endif
+#endif
 
 MattDaemon::MattDaemon() {
     int pid = fork();
@@ -31,6 +31,7 @@ MattDaemon::MattDaemon() {
 
         #ifdef BONUS
         WebHookNotifier::send("Daemon stopped");
+        Tintin_reporter::compresss();
         #endif
 
     }

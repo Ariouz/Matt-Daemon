@@ -40,4 +40,6 @@ class Tintin_reporter {
         static void warn(const std::string& message);
         static void error(const std::string& message);
 
+        static void compresss();
+
 };

@@ -1,11 +1,12 @@
 #include "TintinReporter.hpp"
+#include "Utils.hpp"
 
 Tintin_reporter::Tintin_reporter(const std::string& logfile) : _logfile(logfile) {
     _createLogFile();    
 }
 
 void Tintin_reporter::info(const std::string& msg) { 
-    instance()._log("[INFO] ", msg); 
+    instance()._log("[INFO] ", msg);
     #ifdef BONUS
     openlog("matt_daemon", LOG_PID | LOG_CONS, LOG_USER);
     syslog(LOG_INFO, "%s", msg.c_str());
@@ -72,4 +73,15 @@ void Tintin_reporter::_createLogFile() {
     if (!ofs.is_open()) {
         throw std::runtime_error("Failed to create/open logfile : " + _logfile);
     }
+}
+
+void Tintin_reporter::compresss() {
+    std::string timestamp = instance()._getTimestamp();
+    for (char &c : timestamp) {
+        if (c == '/' || c == ':' || c == '[' || c == ']' || c == ' ')
+            c = '_';
+    }
+    std::string gz = (instance()._logfile + timestamp + ".gz");
+    info("Compressing log to " + gz);
+    compress_log(instance()._logfile.c_str(), gz.c_str());
 }
