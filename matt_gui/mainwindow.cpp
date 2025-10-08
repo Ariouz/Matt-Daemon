@@ -44,7 +44,7 @@ void MainWindow::on_sendButton_clicked()
         QMessageBox::warning(this, "Error", "Connection not established.");
     }
 
-    if (message.trimmed().toLower() == "quit") {
+    if (message.trimmed() == "quit") {
         close();
         return;
     }
