@@ -27,6 +27,8 @@ void Server::open() {
     _serverFd = socket(AF_INET, SOCK_STREAM, 0);
     if (_serverFd == -1) throw std::runtime_error("Failed to create server socket");
 
+    int opt = 1;
+    if (setsockopt(_serverFd, SOL_SOCKET, SO_REUSEADDR, &opt, sizeof(opt)) < 0) throw std::runtime_error("Failed to set sockopt");	    
     if (bind(_serverFd, (struct sockaddr*) &sockaddr, sizeof(sockaddr)) == -1) throw std::runtime_error("Failed to bind socket");
     Tintin_reporter::info("Server bound to port " + std::to_string(SERVER_PORT));
 

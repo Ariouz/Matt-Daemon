@@ -1,5 +1,7 @@
 #include "WebHookNotifier.hpp"
 
+#ifdef BONUS
+
 WebHookNotifier::WebHookNotifier() {
     curl_global_init(CURL_GLOBAL_DEFAULT);
 }
@@ -18,3 +20,5 @@ void WebHookNotifier::send(const std::string& message) {
 
     curl_easy_cleanup(curl);
 }
+
+#endif

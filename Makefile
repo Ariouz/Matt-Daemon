@@ -31,6 +31,7 @@ $(OBJ_DIR):
 
 bonus:
 	make $(NAME) BONUS=1
+	mkdir -p $(GUI_PATH).qm
 	make -C $(MATT_SHELL)
 	make -C $(GUI_PATH)
 
@@ -40,7 +41,7 @@ clean:
 	rm -rf $(OBJ_DIR)
 	make -C $(MATT_SHELL) clean
 	make -C $(GUI_PATH) clean
-	rm "$(GUI_PATH)Ben_AFK"
+	rm -f "$(GUI_PATH)Ben_AFK"
 
 fclean: clean
 	rm -rf $(NAME)

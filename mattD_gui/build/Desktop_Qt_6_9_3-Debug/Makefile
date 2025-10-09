@@ -37,7 +37,7 @@ MOVE          = mv -f
 TAR           = tar -cf
 COMPRESS      = gzip -9f
 DISTNAME      = mattD_gui1.0.0
-DISTDIR = /home/mcordes/Desktop/Matt-Daemon/mattD_gui/build/Desktop_Qt_6_9_3-Debug/.tmp/mattD_gui1.0.0
+DISTDIR = ./.tmp/mattD_gui1.0.0
 LINK          = g++
 LFLAGS        = -Wl,-rpath,/opt/Qt/6.9.3/gcc_64/lib -Wl,-rpath-link,/opt/Qt/6.9.3/gcc_64/lib
 LIBS          = $(SUBLIBS) /opt/Qt/6.9.3/gcc_64/lib/libQt6Widgets.so /opt/Qt/6.9.3/gcc_64/lib/libQt6Gui.so /opt/Qt/6.9.3/gcc_64/lib/libQt6Network.so /opt/Qt/6.9.3/gcc_64/lib/libQt6Core.so -lpthread -lGL   
@@ -1071,7 +1071,7 @@ moc_mainwindow.cpp: ../../mainwindow.h \
 		/opt/Qt/6.9.3/gcc_64/include/QtNetwork/qhostaddress.h \
 		moc_predefs.h \
 		/opt/Qt/6.9.3/gcc_64/libexec/moc
-	/opt/Qt/6.9.3/gcc_64/libexec/moc $(DEFINES) --include /home/mcordes/Desktop/Matt-Daemon/mattD_gui/build/Desktop_Qt_6_9_3-Debug/moc_predefs.h -I/opt/Qt/6.9.3/gcc_64/mkspecs/linux-g++ -I/home/mcordes/Desktop/Matt-Daemon/mattD_gui -I/opt/Qt/6.9.3/gcc_64/include -I/opt/Qt/6.9.3/gcc_64/include/QtWidgets -I/opt/Qt/6.9.3/gcc_64/include/QtGui -I/opt/Qt/6.9.3/gcc_64/include/QtNetwork -I/opt/Qt/6.9.3/gcc_64/include/QtCore -I. -I/usr/include/c++/12 -I/usr/include/x86_64-linux-gnu/c++/12 -I/usr/include/c++/12/backward -I/usr/lib/gcc/x86_64-linux-gnu/12/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include ../../mainwindow.h -o moc_mainwindow.cpp
+	/opt/Qt/6.9.3/gcc_64/libexec/moc $(DEFINES) --include ./moc_predefs.h -I/opt/Qt/6.9.3/gcc_64/mkspecs/linux-g++ -I../../../mattD_gui -I/opt/Qt/6.9.3/gcc_64/include -I/opt/Qt/6.9.3/gcc_64/include/QtWidgets -I/opt/Qt/6.9.3/gcc_64/include/QtGui -I/opt/Qt/6.9.3/gcc_64/include/QtNetwork -I/opt/Qt/6.9.3/gcc_64/include/QtCore -I. -I/usr/include/c++/12 -I/usr/include/x86_64-linux-gnu/c++/12 -I/usr/include/c++/12/backward -I/usr/lib/gcc/x86_64-linux-gnu/12/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include ../../mainwindow.h -o moc_mainwindow.cpp
 
 compiler_moc_objc_header_make_all:
 compiler_moc_objc_header_clean:
