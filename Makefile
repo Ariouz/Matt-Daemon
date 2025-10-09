@@ -13,7 +13,7 @@ SRCS = $(wildcard $(SRC_DIR)/**/*.cpp)
 OBJS = $(patsubst $(SRC_DIR)/%.cpp,$(OBJ_DIR)/%.o,$(SRCS))
 
 MATT_SHELL= matt_shell
-GUI_PATH= ./matt_gui/build/Desktop_Qt_6_9_3-Debug/
+GUI_PATH= ./mattD_gui/build/Desktop_Qt_6_9_3-Debug/
 
 #################### RULES
 
@@ -32,15 +32,15 @@ $(OBJ_DIR):
 bonus:
 	make $(NAME) BONUS=1
 	make -C $(MATT_SHELL)
-#make -C $(GUI_PATH)
+	make -C $(GUI_PATH)
 
 clean:
 
 clean:
 	rm -rf $(OBJ_DIR)
 	make -C $(MATT_SHELL) clean
-#make -C $(GUI_PATH) clean
-#rm "$(GUI_PATH)Ben_AFK"
+	make -C $(GUI_PATH) clean
+	rm "$(GUI_PATH)Ben_AFK"
 
 fclean: clean
 	rm -rf $(NAME)
